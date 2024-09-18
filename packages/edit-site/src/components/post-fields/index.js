@@ -27,6 +27,7 @@ import {
 import { __experimentalHStack as HStack, Icon } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useEntityRecords, store as coreStore } from '@wordpress/core-data';
+import { passwordField } from '@wordpress/fields';
 
 /**
  * Internal dependencies
@@ -348,6 +349,7 @@ function usePostFields( viewType ) {
 					},
 				],
 			},
+			passwordField,
 		],
 		[ authors, viewType, frontPageId, postsPageId ]
 	);

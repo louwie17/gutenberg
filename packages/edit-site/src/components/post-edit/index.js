@@ -63,12 +63,24 @@ function PostEditForm( { postType, postId } ) {
 		fields: [
 			'featured_media',
 			'title',
+			'status_and_visibility',
 			'author',
 			'date',
 			'slug',
 			'parent',
 			'comment_status',
 		],
+		layout: {
+			combinedFields: [
+				{
+					id: 'status_and_visibility',
+					label: 'Status & Visibility',
+					children: [ 'status', 'password' ],
+					direction: 'vertical',
+					render: ( { item } ) => item.status,
+				},
+			],
+		},
 	};
 
 	const fieldsWithBulkEditSupport = [
