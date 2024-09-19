@@ -15,6 +15,8 @@ const passwordField: Field< BasePost > = {
 	label: __( 'Password' ),
 	getValue: ( { item } ) => item.password,
 	Edit: PasswordEdit,
+	enableSorting: false,
+	enableHiding: false,
 };
 
 export default passwordField;
