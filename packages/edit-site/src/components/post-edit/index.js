@@ -58,30 +58,6 @@ function PostEditForm( { postType, postId } ) {
 			} ),
 		[ _fields ]
 	);
-	const form = {
-		type: 'panel',
-		fields: [
-			'featured_media',
-			'title',
-			'status_and_visibility',
-			'author',
-			'date',
-			'slug',
-			'parent',
-			'comment_status',
-		],
-		layout: {
-			combinedFields: [
-				{
-					id: 'status_and_visibility',
-					label: 'Status & Visibility',
-					children: [ 'status', 'password' ],
-					direction: 'vertical',
-					render: ( { item } ) => item.status,
-				},
-			],
-		},
-	};
 
 	const fieldsWithBulkEditSupport = [
 		'title',
@@ -91,6 +67,44 @@ function PostEditForm( { postType, postId } ) {
 		'comment_status',
 	];
 
+	const form = useMemo(
+		() => ( {
+			type: 'panel',
+			fields: [
+				'featured_media',
+				'title',
+				'status_and_visibility',
+				'author',
+				'date',
+				'slug',
+				'parent',
+				'comment_status',
+			],
+			layout: {
+				combinedFields: [
+					{
+						id: 'status_and_visibility',
+						label: 'Status & Visibility',
+						children: [ 'status', 'password' ].filter(
+							( child ) => {
+								if (
+									child === 'password' &&
+									ids.length === 1 &&
+									record.status === 'private'
+								) {
+									return false;
+								}
+								return true;
+							}
+						),
+						direction: 'vertical',
+						render: ( { item } ) => item.status,
+					},
+				],
+			},
+		} ),
+		[ ids, record.status ]
+	);
 	const onChange = ( edits ) => {
 		for ( const id of ids ) {
 			if (

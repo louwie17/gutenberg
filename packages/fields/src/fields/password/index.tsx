@@ -14,7 +14,6 @@ const passwordField: Field< BasePost > = {
 	id: 'password',
 	label: __( 'Password' ),
 	getValue: ( { item } ) => item.password,
-	isValid: ( { status } ) => status !== 'private',
 	Edit: PasswordEdit,
 };
 
