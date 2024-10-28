@@ -37,13 +37,6 @@ const meta = {
 			description: 'Chooses the type of the sample field.',
 			options: [ 'text', 'integer', 'datetime' ],
 		},
-		additionalSampleFieldDependency: {
-			name: 'Additional Sample Field Dependency',
-			control: { type: 'select' },
-			description:
-				'Choose an additional dependency of the sample field for visiblity.',
-			options: [ 'order', 'author', 'status' ],
-		},
 	},
 	args: {
 		sampleFieldType: 'text',
@@ -113,24 +106,17 @@ const fields = [
 		isVisible: ( item: SamplePost ) => {
 			return item.status !== 'private';
 		},
-		dependencies: [ 'status' ],
 	},
 ] as Field< SamplePost >[];
 
 export const Default = ( {
 	type,
 	sampleFieldType = 'text',
-	additionalSampleFieldDependency,
 }: {
 	type: 'panel' | 'regular';
 	sampleFieldType: 'text' | 'integer' | 'datetime';
-	additionalSampleFieldDependency?: keyof SamplePost;
 } ) => {
 	const visibileFields = useMemo( () => {
-		const dependencies = [ 'sampleField' ];
-		if ( additionalSampleFieldDependency ) {
-			dependencies.push( additionalSampleFieldDependency );
-		}
 		return [
 			...fields,
 			{
@@ -140,10 +126,9 @@ export const Default = ( {
 				isVisible: ( item: SamplePost ) => {
 					return item.order < 3 && item.sampleField !== 'hide';
 				},
-				dependencies,
 			},
 		] as Field< SamplePost >[];
-	}, [ sampleFieldType, additionalSampleFieldDependency ] );
+	}, [ sampleFieldType ] );
 	const [ post, setPost ] = useState( {
 		title: 'Hello, World!',
 		order: 2,

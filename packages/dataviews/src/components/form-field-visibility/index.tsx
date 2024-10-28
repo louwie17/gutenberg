@@ -8,25 +8,22 @@ import { useMemo } from '@wordpress/element';
  */
 import type { NormalizedField } from '../../types';
 
-type DataFormFieldVisibilityProps< Item > = React.PropsWithChildren< {
+type FormFieldVisibilityProps< Item > = React.PropsWithChildren< {
 	field: NormalizedField< Item >;
 	data: Item;
 } >;
 
-export default function DataFormFieldVisibility< Item >( {
+export default function FormFieldVisibility< Item >( {
 	data,
 	field,
 	children,
-}: DataFormFieldVisibilityProps< Item > ) {
-	const dependencies = field.dependencies
-		? field.dependencies.map( ( dep ) => data[ dep ] )
-		: [ field?.getValue( { item: data } ) ];
+}: FormFieldVisibilityProps< Item > ) {
 	const isVisible = useMemo( () => {
 		if ( field.isVisible ) {
 			return field.isVisible( data );
 		}
 		return true;
-	}, [ field.isVisible, ...dependencies ] );
+	}, [ field.isVisible, data ] );
 
 	if ( ! isVisible ) {
 		return null;

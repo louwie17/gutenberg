@@ -129,11 +129,6 @@ export type Field< Item > = {
 	isVisible?: ( item: Item ) => boolean;
 
 	/**
-	 * Dependency list for triggering isVisible.
-	 */
-	dependencies?: Array< keyof Item >;
-
-	/**
 	 * Whether the field is sortable.
 	 */
 	enableSorting?: boolean;
