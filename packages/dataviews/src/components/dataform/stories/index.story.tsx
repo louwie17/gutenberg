@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useMemo, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -17,7 +17,6 @@ type SamplePost = {
 	reviewer: string;
 	date: string;
 	birthdate: string;
-	sampleField?: string;
 	password?: string;
 };
 
@@ -31,15 +30,6 @@ const meta = {
 				'Chooses the layout of the form. "regular" is the default layout.',
 			options: [ 'regular', 'panel' ],
 		},
-		sampleFieldType: {
-			name: 'Sample Field Type',
-			control: { type: 'select' },
-			description: 'Chooses the type of the sample field.',
-			options: [ 'text', 'integer', 'datetime' ],
-		},
-	},
-	args: {
-		sampleFieldType: 'text',
 	},
 };
 export default meta;
@@ -109,26 +99,7 @@ const fields = [
 	},
 ] as Field< SamplePost >[];
 
-export const Default = ( {
-	type,
-	sampleFieldType = 'text',
-}: {
-	type: 'panel' | 'regular';
-	sampleFieldType: 'text' | 'integer' | 'datetime';
-} ) => {
-	const visibileFields = useMemo( () => {
-		return [
-			...fields,
-			{
-				id: 'sampleField',
-				label: 'Sample Field',
-				type: sampleFieldType,
-				isVisible: ( item: SamplePost ) => {
-					return item.order < 3 && item.sampleField !== 'hide';
-				},
-			},
-		] as Field< SamplePost >[];
-	}, [ sampleFieldType ] );
+export const Default = ( { type }: { type: 'panel' | 'regular' } ) => {
 	const [ post, setPost ] = useState( {
 		title: 'Hello, World!',
 		order: 2,
@@ -142,7 +113,6 @@ export const Default = ( {
 	const form = {
 		fields: [
 			'title',
-			'sampleField',
 			'order',
 			'author',
 			'reviewer',
@@ -156,7 +126,7 @@ export const Default = ( {
 	return (
 		<DataForm< SamplePost >
 			data={ post }
-			fields={ visibileFields }
+			fields={ fields }
 			form={ {
 				...form,
 				type,
