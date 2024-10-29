@@ -37,7 +37,7 @@ function PasswordEdit( {
 		<VStack
 			as="fieldset"
 			spacing={ 4 }
-			className="dataviews-controls__password"
+			className="fields-controls__password"
 		>
 			{ ! hideLabelFromVision && (
 				<BaseControl.VisualLabel as="legend">
@@ -55,7 +55,7 @@ function PasswordEdit( {
 				onChange={ handleTogglePassword }
 			/>
 			{ showPassword && (
-				<div className="editor-change-status__password-input">
+				<div className="fields-controls__password-input">
 					<TextControl
 						label={ __( 'Password' ) }
 						onChange={ ( value ) =>
