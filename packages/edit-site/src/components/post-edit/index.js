@@ -84,7 +84,7 @@ function PostEditForm( { postType, postId } ) {
 				combinedFields: [
 					{
 						id: 'status_and_visibility',
-						label: 'Status & Visibility',
+						label: __( 'Status & Visibility' ),
 						children: [ 'status', 'password' ].filter(
 							( child ) => {
 								if (
