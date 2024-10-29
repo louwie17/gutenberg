@@ -79,7 +79,11 @@ function PostEditForm( { postType, postId } ) {
 				'slug',
 				'parent',
 				'comment_status',
-			],
+			].filter(
+				( field ) =>
+					ids.length === 1 ||
+					fieldsWithBulkEditSupport.includes( field )
+			),
 			combinedFields: [
 				{
 					id: 'status_and_visibility',
@@ -139,16 +143,7 @@ function PostEditForm( { postType, postId } ) {
 			<DataForm
 				data={ ids.length === 1 ? record : multiEdits }
 				fields={ fields }
-				form={
-					ids.length === 1
-						? form
-						: {
-								...form,
-								fields: form.fields.filter( ( field ) =>
-									fieldsWithBulkEditSupport.includes( field )
-								),
-						  }
-				}
+				form={ form }
 				onChange={ onChange }
 			/>
 		</VStack>
