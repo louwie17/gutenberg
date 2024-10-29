@@ -80,30 +80,26 @@ function PostEditForm( { postType, postId } ) {
 				'parent',
 				'comment_status',
 			],
-			layout: {
-				combinedFields: [
-					{
-						id: 'status_and_visibility',
-						label: __( 'Status & Visibility' ),
-						children: [ 'status', 'password' ].filter(
-							( child ) => {
-								if (
-									child === 'password' &&
-									ids.length === 1 &&
-									record.status === 'private'
-								) {
-									return false;
-								}
-								return true;
-							}
-						),
-						direction: 'vertical',
-						render: ( { item } ) => item.status,
-					},
-				],
-			},
+			combinedFields: [
+				{
+					id: 'status_and_visibility',
+					label: __( 'Status & Visibility' ),
+					children: [ 'status', 'password' ].filter( ( child ) => {
+						if (
+							child === 'password' &&
+							ids.length === 1 &&
+							record.status === 'private'
+						) {
+							return false;
+						}
+						return true;
+					} ),
+					direction: 'vertical',
+					render: ( { item } ) => item.status,
+				},
+			],
 		} ),
-		[ ids, record.status ]
+		[ ids, record?.status ]
 	);
 	const onChange = ( edits ) => {
 		for ( const id of ids ) {
