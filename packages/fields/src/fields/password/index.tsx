@@ -19,4 +19,7 @@ const passwordField: Field< BasePost > = {
 	isVisible: ( item ) => item.status !== 'private',
 };
 
+/**
+ * This field is used to display the post password.
+ */
 export default passwordField;
