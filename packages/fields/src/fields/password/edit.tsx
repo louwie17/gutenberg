@@ -15,8 +15,14 @@ import { __ } from '@wordpress/i18n';
  */
 import type { BasePost } from '../../types';
 
-function PasswordEdit( { data, onChange }: DataFormControlProps< BasePost > ) {
-	const [ showPassword, setShowPassword ] = useState( !! data.password );
+function PasswordEdit( {
+	data,
+	onChange,
+	field,
+}: DataFormControlProps< BasePost > ) {
+	const [ showPassword, setShowPassword ] = useState(
+		!! field.getValue( { item: data } )
+	);
 
 	const handleTogglePassword = ( value: boolean ) => {
 		setShowPassword( value );
@@ -47,7 +53,7 @@ function PasswordEdit( { data, onChange }: DataFormControlProps< BasePost > ) {
 								password: value,
 							} )
 						}
-						value={ data.password || '' }
+						value={ field.getValue( { item: data } ) || '' }
 						placeholder={ __( 'Use a secure password' ) }
 						type="text"
 						__next40pxDefaultSize
