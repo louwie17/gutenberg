@@ -23,6 +23,14 @@ import { unlock } from '../../lock-unlock';
 
 const { PostCardPanel } = unlock( editorPrivateApis );
 
+const fieldsWithBulkEditSupport = [
+	'title',
+	'status',
+	'date',
+	'author',
+	'comment_status',
+];
+
 function PostEditForm( { postType, postId } ) {
 	const ids = useMemo( () => postId.split( ',' ), [ postId ] );
 	const { record } = useSelect(
@@ -59,14 +67,6 @@ function PostEditForm( { postType, postId } ) {
 		[ _fields ]
 	);
 
-	const fieldsWithBulkEditSupport = [
-		'title',
-		'status',
-		'date',
-		'author',
-		'comment_status',
-	];
-
 	const form = useMemo(
 		() => ( {
 			type: 'panel',
@@ -88,22 +88,13 @@ function PostEditForm( { postType, postId } ) {
 				{
 					id: 'status_and_visibility',
 					label: __( 'Status & Visibility' ),
-					children: [ 'status', 'password' ].filter( ( child ) => {
-						if (
-							child === 'password' &&
-							ids.length === 1 &&
-							record.status === 'private'
-						) {
-							return false;
-						}
-						return true;
-					} ),
+					children: [ 'status', 'password' ],
 					direction: 'vertical',
 					render: ( { item } ) => item.status,
 				},
 			],
 		} ),
-		[ ids, record?.status ]
+		[ ids ]
 	);
 	const onChange = ( edits ) => {
 		for ( const id of ids ) {

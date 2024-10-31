@@ -17,6 +17,7 @@ const passwordField: Field< BasePost > = {
 	Edit: PasswordEdit,
 	enableSorting: false,
 	enableHiding: false,
+	isVisible: ( item ) => item.status !== 'private',
 };
 
 export default passwordField;
