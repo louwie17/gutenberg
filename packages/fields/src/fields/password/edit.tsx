@@ -5,8 +5,6 @@ import {
 	CheckboxControl,
 	__experimentalVStack as VStack,
 	TextControl,
-	BaseControl,
-	VisuallyHidden,
 } from '@wordpress/components';
 import type { DataFormControlProps } from '@wordpress/dataviews';
 import { useState } from '@wordpress/element';
@@ -17,13 +15,7 @@ import { __ } from '@wordpress/i18n';
  */
 import type { BasePost } from '../../types';
 
-function PasswordEdit( {
-	data,
-	onChange,
-	field,
-	hideLabelFromVision,
-}: DataFormControlProps< BasePost > ) {
-	const { label } = field;
+function PasswordEdit( { data, onChange }: DataFormControlProps< BasePost > ) {
 	const [ showPassword, setShowPassword ] = useState( !! data.password );
 
 	const handleTogglePassword = ( value: boolean ) => {
@@ -39,14 +31,6 @@ function PasswordEdit( {
 			spacing={ 4 }
 			className="fields-controls__password"
 		>
-			{ ! hideLabelFromVision && (
-				<BaseControl.VisualLabel as="legend">
-					{ label }
-				</BaseControl.VisualLabel>
-			) }
-			{ hideLabelFromVision && (
-				<VisuallyHidden as="legend">{ label }</VisuallyHidden>
-			) }
 			<CheckboxControl
 				__nextHasNoMarginBottom
 				label={ __( 'Password protected' ) }
